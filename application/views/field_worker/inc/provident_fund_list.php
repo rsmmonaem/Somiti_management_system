@@ -1,0 +1,78 @@
+<div class="page-wrapper">
+    <div class="page-content">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">প্রভিডেন্ট ফান্ড (PF)</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">প্রভিডেন্ট ফান্ড (PF) লিস্ট</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="ms-auto">
+                <div class="btn-group">
+                </div>
+            </div>
+        </div>
+        <!--end breadcrumb-->
+ 
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <h6 class="mb-0 text-uppercase">প্রভিডেন্ট ফান্ড (PF) লিস্ট</h6>
+                <div class="dropdown ms-auto">
+                    <a href="<?= base_url()?>field_worker/add_salary" class="btn btn-primary"><i class="bx bx-plus-circle"></i> বেতন প্রদান করুন </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>অফিসারের নাম</th>
+                            <th>প্রদানের তারিখ</th>
+                            <th>মাসের নাম </th>
+                            <th>মূল বেতন</th>
+							<th>বোনাস</th>
+							<th>প্রভিডেন্ট %</th>
+							<th>প্রভিডেন্ট ফান্ড (PF)</th>
+                            <th>মোট বেতন</th>
+                        </tr>
+                        </thead>
+
+						<tbody>
+                        <?php
+                        $i = 1;
+                        foreach ($provident_fund as $row):?>
+                        <tr>
+							<td> <?= $i++; ?></td>
+                            <td> 
+								<?php
+									$result = $this->db->get_where('officer', ['officer_id' => $row->salary_officer_id])->row();
+									if ($result) {
+										echo $result->officer_name;									
+									} else {
+										echo "guarantor not found";
+									}
+								?>
+								
+							</td>
+                            <td><?= $row->salary_date ?></td>
+                            <td> <?= date("F", strtotime($row->salary_month)) ?></td>
+							<td> <?= $row->salary_amount ?></td>
+							<td> <?= $row->salary_bonus ?></td>
+							<td> <?= $row->provident_percent ?></td>
+							<td> <?= $row->totalpf ?></td>
+                            <td><?= $row->total_salary ?></td> 
+
+                        </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
